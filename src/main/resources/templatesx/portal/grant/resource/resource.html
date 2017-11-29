@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{grantTitle}"></title>
+<link th:replace="common/portalCommon::common"/>
+<link th:replace="common/portalCommon::treeview"/>
+<link th:replace="common/portalCommon::typeahead"/>
+<script type="text/javascript" th:src="@{/module/grant/resource.js}"></script>
+
+</head>
+<body>
+<ul id="myTab" class="nav nav-tabs" th:include="portal/grant/head"></ul>
+<script>$('#resource').tab('show')</script>
+
+<div class="page-list-body">
+	<div class="page-list-query">
+	<ul id="service" class="nav nav-pills nav-stacked" style="float:left;margin-top:1px">
+		<li th:each="serv,list:${listService}" th:class="${list.index == 0} ? 'active'">
+			<a href="#" th:onclick="'onService(this, \'' + ${serv._id} + '\', \'' + ${serv.contextPath} + '\')'"><span th:text="${serv.serviceName}"></span><span class="glyphicon" style="float:right;margin-top:2px"></span></a>
+		</li>	
+	</ul>	
+	<div id="tree" style="float:left"></div>
+	<div id="uri" style="width: 420px;float:left;display: none;">	
+		<ul class="list-group" id="uriList">
+			<li class="list-group-item" style="color:white">
+				<a href="#this" id="addChildId" onclick="addChild()" style="color:white">[新增子节点]</a>&nbsp;
+				<a href="#this" class="operatorNode" onclick="updateNode()" style="color:white">[修改]</a>&nbsp;
+				<a href="#this" class="operatorNode" onclick="removeNode()" style="color:white">[删除]</a>&nbsp;
+				<a href="#this" class="operatorNode" onclick="addUri()" style="color:white">[添加URI]</a>&nbsp;&nbsp;
+				|&nbsp;&nbsp;
+				<a href="#this" title="同级置顶" class="glyphicon glyphicon-step-backward" onclick="move.topNode()" style="transform: rotate(90deg);color:white"></a>&nbsp;
+				<a href="#this" title="同级上移" class="glyphicon glyphicon-arrow-up" onclick="move.upNode()" style="color:white"></a>&nbsp;
+				<a href="#this" title="同级下移" class="glyphicon glyphicon-arrow-down" onclick="move.downNode()" style="color:white"></a>	
+			</li>			
+			<script id="uriListTemplate" type="text/html">
+			{{each}}
+			<li class="list-group-item" style="background-color: white;">
+				<span title="{{$value.uri}}({{$value.uriIndex}})" style="width:355px;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+					{{$value.uri}}({{$value.uriIndex}})
+				</span>
+				<a href="#this" data-uri="{{$value.uri}}" data-uri-index="{{$value.uriIndex}}" class="glyphicon glyphicon-minus-sign" style="margin-left:12px;" onclick="preRemoveUri(this)"></a>
+			</li>
+			{{/each}}
+			</script>			
+		</ul>
+	</div>
+	</div>
+</div>
+
+<div th:fragment="addChild" th:replace="common/portalCommon::modal('addChild', '添加子节点', 380)">
+	<div class="input-group">
+		<span class="input-group-addon" style="width:120px">节点类型</span>
+		<select id="addNodeType" class="form-control" onchange="noteTypeChange(this.value)"  style="width:230px">
+			<option value="0">目录</option><option value="1">菜单</option><option value="2">操作</option>
+		</select>
+	</div>	
+	<div class="input-group" style="margin-top:10px">
+		<span class="input-group-addon" style="width:120px">
+		<span id="nodeGlyphicon" class="glyphicon glyphicon-folder-close"></span>名称</span>
+		<input type="text" id="addNodeName" class="form-control" placeholder="请输入名称" style="width:230px">
+	</div>
+</div>
+
+<div th:fragment="updateNode" th:replace="common/portalCommon::modal('updateNode', '修改节点', 380)">
+	<div class="input-group">
+		<span class="input-group-addon" style="width:120px">
+		<span id="updateNodeGlyphicon" class="glyphicon glyphicon-folder-close"></span>名称</span>
+		<input type="text" id="updateNodeName" class="form-control" style="width:230px">
+	</div>
+</div>
+
+<div th:fragment="addUri" th:replace="common/portalCommon::modal('addUri', '添加Uri', 480)">
+	<div class="modal-body" style="height:auto;">
+		<ul class="list-group" id="uriUl"></ul>
+	</div>
+	<div style="margin-left:20px;margin-top:-25px;">提示:/*所有权限；/test/*以/test/开头权限；可以添加一个参数</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+
+
+<li id="myService" data-href="grant/service"><a href="#" onclick="tagGo(this)" data-toggle="tab">微服务</a></li>
+<li id="resource" data-href="grant/resource"><a href="#" onclick="tagGo(this)" data-toggle="tab">资源配置</a></li>
+<li id="grant" data-href="grant/grantToRole"><a href="#" onclick="tagGo(this)" data-toggle="tab">角色授权</a></li>
+
+<div style="text-align: center;width:100%;margin-left:-360px"><h4 th:text="#{grantTitle}"></h4></div>
+<script type="text/javascript">
+function tagGo(obj) {
+	location.href = contextPath + $(obj).parent().attr("data-href");
+}
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{grantTitle}"></title>
+<link th:replace="common/portalCommon::common"/>
+<script type="text/javascript" th:src="@{/module/grant/service.js}"></script>
+<script type="text/javascript" th:inline="javascript">$(function() {freshPage([[${listJson}]]);})</script>
+</head>
+<body>
+
+<ul id="myTab" class="nav nav-tabs" th:include="portal/grant/head"></ul>
+<script>$('#myService').tab('show')</script>
+
+<div class="page-list-body">
+	<div class="page-list-query">
+		<button class="btn btn-success btn-sm" onclick="$('#addForm')[0].reset();$('#add').modal('show');" type="button">新增</button>
+		 提示：存在资源的微服务不能删除
+	</div>		
+	<table class="page-list-table table table-bordered table-condensed">
+	<tr>
+		<th>微服务ID</th>
+		<th>微服务名称</th>
+		<th>context-path</th>			
+		<th style="width:200px">更新时间</th>
+		<th style="width:140px">排序</th>
+		<th>操作</th>          
+	</tr>
+	<script id="pageTemplate" type="text/html">
+	{{each arrayList as v i}}
+	<tr>
+		<td name="serviceId">{{v._id}}</td>
+		<td>{{v.serviceName}}</td>
+		<td>{{v.contextPath}}</td>
+		<td>{{v.lasted}}</td>	
+		<td>
+			{{if arrayList.length != 1 && i !== 0}}
+			<a href="#" onclick="move.toTop('{{v._id}}')" title="置顶" class="glyphicon glyphicon-step-backward" style="transform: rotate(90deg);"></a>
+			<a href="#" onclick="move.toUp('{{i}}')" title="上移" class="glyphicon glyphicon-arrow-up"></a>
+			{{/if}}
+			
+			{{if arrayList.length != 1 && i != arrayList.length - 1}}
+			<a href="#" onclick="move.toDown({{i}})" title="下移" class="glyphicon glyphicon-arrow-down"></a>
+			{{/if}}					
+		</td>
+		<td>
+			<a href="#" onclick="edit({{v._id}}, '{{v.serviceName}}', '{{v.contextPath}}')">[修改]</a>&nbsp;
+			<a href="#" onclick="remove({{v._id}})">[删除]</a>
+		</td>
+	</tr>
+	{{/each}}
+	</script>
+	</table>
+</div>
+
+<div th:fragment="add" th:replace="common/portalCommon::modal('add', '新增微服务', 400)">
+	<div class="input-group">
+		<span class="input-group-addon" style="width:120px">微服务名称</span>
+		<input type="text" id="addServiceName" name="serviceName" class="form-control" maxlength="32" style="width:250px">
+	</div>
+	<div class="input-group" style="margin-top:10px">
+		<span class="input-group-addon" style="width:120px">context-path</span>
+		<input type="text" id="addContextPath" name="contextPath" class="form-control" maxlength="32" style="width:250px">
+	</div>
+</div>
+
+<div th:fragment="edit" th:replace="common/portalCommon::modal('edit', '修改微服务', 400)">
+	<input type="hidden" id="updateId" name="_id">
+	<div class="input-group">
+		<span class="input-group-addon" style="width:120px">微服务名称</span>
+		<input type="text" id="updateServiceName" name="serviceName" class="form-control" maxlength="32" style="width:250px">
+	</div>
+	<div class="input-group" style="margin-top:10px">
+		<span class="input-group-addon" style="width:120px">context-path</span>
+		<input type="text" id="updateContextPath" name="contextPath" class="form-control" maxlength="32" style="width:250px">
+	</div>
+</div>
+
+</body>
+</html>
+

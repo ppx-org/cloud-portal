@@ -1,0 +1,72 @@
+<link   th:fragment="base" rel="stylesheet" th:href="@{/bootstrap-3.3.7/css/bootstrap.min.css}"/>
+<script th:fragment="base" type="text/javascript" th:src="@{/common/jquery-3.2.1.min.js}"></script>
+<script th:fragment="base" type="text/javascript" th:src="@{/bootstrap-3.3.7/js/bootstrap.min.js}"></script>
+<script th:fragment="base" type="text/javascript" th:inline="javascript">var contextPath = [[@{/}]]</script>
+
+<div   th:fragment="common" th:replace="common/portalCommon::base"></div>
+<link   th:fragment="common" rel="stylesheet" th:href="@{/common/portal-common.css}"/>
+<script th:fragment="common" type="text/javascript" th:src="@{/common/template3.0.js}"></script>
+<script th:fragment="common" type="text/javascript" th:src="@{/common/portal-common.js}"></script>
+
+<link   th:fragment="treeview" rel="stylesheet" th:href="@{/treeview/bootstrap-treeview.min.css}" />
+<script th:fragment="treeview" type="text/javascript" th:src="@{/treeview/bootstrap-treeview-v1.min.js}"></script>
+<script th:fragment="typeahead" type="text/javascript" th:src="@{/typeahead/bootstrap3-typeahead.min.js}"></script>
+
+
+
+<!--  -->
+<div th:fragment="pageList(title)">
+	<div th:replace="common/portalCommon::pageListBody"></div>
+</div>
+
+
+<div th:fragment="pageListBody" class="page-list-body">
+	<div class="page-list-query">
+		<form id="queryForm" class="form-inline">
+		<input type="hidden" id="pageSize" name="pageSize" value="15">
+		<input type="hidden" id="pageNumber" name="pageNumber">
+		<input type="hidden" id="orderName" name="orderName">
+		<input type="hidden" id="orderType" name="orderType">
+		<div th:include="::queryFragment"></div>
+		</form>		
+	</div>
+	<table class="page-list-table table table-bordered table-condensed" th:include="::listFragment"></table>
+	<nav class="page-list-footer">
+		<ul id="pageNumUL" class="pagination pull-left pagination-sm"></ul>
+	    <div class="page-list-footer-msg" >
+		<div class="col-xs-1 input-group-sm">
+		<select onchange="$('#pageSize').val(this.value);queryPage(1)" class="form-control">		        
+			<option value="15">15条</option>
+			<option value="25">25条</option>
+			<option value="50">50条</option>
+			<option value="100">100条</option>	    
+		</select>
+		</div>
+		<div>共<b id="totalRows"></b>条记录</div>
+		</div>
+	</nav>
+</div>
+
+
+<div th:fragment="modal(fragment, title, width)" th:id="${fragment}" class="modal fade" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog" th:style="'width:' + ${width==null?'':width + 'px'}">
+	<div class="modal-content">
+	<div class="modal-header">
+		<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button><h5 class="modal-title" th:text="${title}"></h5>
+	</div>
+	<div class="modal-body" style="height:auto;">
+	<div class="form-group" style="width:100%;">
+	<form th:id="${fragment}+'Form'" class="form-horizontal" th:include="::${fragment}"></form>
+	</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary btn-sm" th:onclick="${fragment}+'Ok()'" type="button">确定</button>
+		<button class="btn btn-default btn-sm" data-dismiss="modal" type="button">关闭</button>
+	</div>
+	</div>
+</div>
+</div>
+
+
+
+

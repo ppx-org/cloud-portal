@@ -1,0 +1,55 @@
+
+.required {color:red}
+
+#loading .modal-content {
+	height:50px;width:100px;margin-left:260px;margin-top:180px;text-align:center;
+	color:#31708f;background-color:#d9edf7;border-color:#bce8f1;
+}
+
+#myAlert {position:fixed;left:0px;top:0px;width:100%;text-align:center;display:none;z-index:9999}
+.ellipsis {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.w-id {width:80px}
+.w-title-s {width:150px}
+.w-title-m {width:200px}
+.w-title-l {width:250px}
+.w-number {width:80px;text-align:right !important;padding-right:6px}
+.w-number-m {width:120px;text-align:right !important;padding-right:6px}
+.w-date {width:90px}
+.w-time {width:140px}
+.w-action {width:100px}
+
+.form-control {width:auto; display: inline-block}
+
+/** page begin>>>>>>> 1400 */
+.page-list-body {background-color:#ffffff;padding:3px;font-size:13px;color:#464e63; min-width:1200px;}
+.page-list-query {height:40px;padding:5px;padding-top:5px;}
+.page-list-title {height:40px;font-size:15px;float:left;line-height:30px;font-weight:normal;padding-left:10px;padding-right:10px;}
+
+.page-list-table th {text-align:center;font-weight:normal;background-color:#f8f8f8;height:40px;line-height:25px;}
+.page-list-table >tbody>tr>th {padding-top:12px;font-weight: bold;}
+.page-list-table td {text-align:center;height:29px;line-height:18px;}
+.page-list-table tr:hover {background-color: #f9f9f9;}
+
+.page-sorting, .page-sorting-asc, .page-sorting-desc {cursor:pointer}
+.page-sorting > .glyphicon:after {content:"\e150";}
+.page-sorting-asc > .glyphicon:after {content:"\e155";}
+.page-sorting-desc > .glyphicon:after {content:"\e156";}
+
+.page-list-footer {height:40px;border:1px solid #ddd;padding:5px;width:100%;margin-top:-15px}
+.page-list-footer nav {margin-left:5px;margin-right:10px;margin-top:-1px}
+.page-list-footer .pagination{padding:0;margin-top:0}
+.page-list-footer-msg {line-height:30px;padding-left:0px;}
+.page-list-footer .col-xs-1 {padding:0px;width:80px;}
+/** page end<<<<<<< */
+
+
+/ ** grant */
+.glyphicon-folder-close {color:rgb(242, 221, 122)}
+.glyphicon-th-list {color:black;}
+.glyphicon-wrench {color:green}
+#service li a {height:27px;padding:4px 15px;margin:0px;}
+#service .glyphicon {width:10px;}
+#uri .list-group-item {background-color: #428bca;}
+#tree .list-group-item, #uri .list-group-item {padding-top:4px;height:30px;}
+.indeterminate {color:blue;}
